@@ -13,7 +13,7 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        /*Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('nome', 100);
@@ -21,7 +21,7 @@ class CreateClientesTable extends Migration
             $table->string('telemovel', 100);
             $table->unsignedBigInteger('automovel_id');
             $table->foreign('automovel_id')->references('id')->on('automovels');
-        });
+        });*/
 
 
        /* Schema::table('clientes', function (Blueprint $table) {

@@ -14,8 +14,8 @@ class CreateAutomovelsTable extends Migration
     public function up()
     {
 
-        //Schema::dropIfExists('automovels');
-        Schema::create('automovels', function (Blueprint $table) {
+       Schema::dropIfExists('automovels');
+       Schema::create('automovels', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('marca', 100);

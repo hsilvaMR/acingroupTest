@@ -18,8 +18,8 @@ class CreateUtilizadorsTable extends Migration
             $table->timestamps();
             $table->string('nome', 100);
             $table->string('email', 50);
-            $table->string('senha', 50);
-            $table->string('tipo', 255);
+            $table->string('senha', 255);
+            $table->string('tipo', 40);
         });
 
 
