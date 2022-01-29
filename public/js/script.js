@@ -84,7 +84,14 @@ $(function() {
                     var url = '/dashboard/users';
                     window.location.href = url
                 } else {
-                    alert(error)
+                    switch (error) {
+                        case "existe":
+                            alert("o Utilizador já existe")
+                            break;
+                        default:
+                            alert(error)
+                            break;
+                    }
                 }
             },
             error: function(jqXHR) {

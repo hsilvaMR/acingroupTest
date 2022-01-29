@@ -62,11 +62,10 @@
                 <label class="form-label" for="form6Example4"> {{ $tipoUser }} </label>
                 <select class="select form-control mb-4" name="ftype" >
                     <option value="1"></option>
-                    <option value="1">Admin</option>
-                    <option value="2">Funcionario</option>
-                    <option value="3">Normal</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Funcionario">Funcionario</option>
+                    <option value="Normal">Normal</option>
                 </select>
-
             @else
                 <input type="text" id="form6Example4" class="form-control" />
                 <label class="form-label" for="form6Example4">
