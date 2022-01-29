@@ -111,34 +111,45 @@ class Dashboard extends Controller
         $email = trim($request->fmail);
         $response  = ['error' =>  'init', 'success' =>  'init'];
 
-        if (!empty($email)  && !empty($senha) && !empty($nome) && !empty($tipo)    ) {
+        $user = $this->utilizador->where('email', $email)->first();
 
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if(!empty($user)){
 
-                $checkInsert = $this->utilizador->insert(
-
-                    [
-                        'nome' =>   $nome,
-                        'tipo' => $tipo,
-                        'email' =>  $email,
-                        'senha' => \Hash::make($senha)
-                    ]
-                );
-
-                if ($checkInsert != null) {
-
-                    $response['success'] = "success";
-                }
-            }
-            else{
-
-                $response['error'] = "invalidMail";
-            }
+            $response['error'] = "existe";
         }
         else{
 
-            $response['error'] = "empty";
+            if (!empty($email)  && !empty($senha) && !empty($nome) && !empty($tipo)) {
+
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                    $checkInsert = $this->utilizador->insert(
+
+                        [
+                            'nome' =>   $nome,
+                            'tipo' => $tipo,
+                            'email' =>  $email,
+                            'senha' => \Hash::make($senha)
+                        ]
+                    );
+
+                    if ($checkInsert != null) {
+
+                        $response['success'] = "success";
+                    }
+                } else {
+
+                    $response['error'] = "invalidMail";
+                }
+            } else {
+
+                $response['error'] = "empty";
+            }
+
         }
+
         return json_encode($response, true);
     }
+
+
 }
