@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Utilizador;
 
 class Dashboard extends Controller
 {
     private $dados = [];
+    private $utilizador;
+    private $automovel;
+    private $manutencao;
+    private $cliente;
+
     public  function index()
     {
         $this->dados['tipo'] = "home";
@@ -15,16 +21,31 @@ class Dashboard extends Controller
         return view('backoffice/page/admin', ['title' => 'index'], $this->dados);
     }
 
-    public  function gestaoUtilizador(){
+    public  function gestaoUtilizador()
+    {
+        $this->utilizador = new Utilizador;
+        $array = [];
+
+        foreach ($this->utilizador::all() as $value) {
+
+            $array[] = [
+                'id' => $value->id,
+                'nome' => $value->nome,
+                'email' => $value->email,
+                'tipo' => $value->tipo,
+            ];
+        }
 
         $this->dados['tipo'] = "user";
         $this->dados['title_area'] = "Gestao de Utilizador";
-        return view('backoffice/page/gest-utilizador', ['title' => 'gestao utilizador'], $this->dados );
+        $this->dados['array'] = $array;
+        return view('backoffice/page/gest-utilizador', ['title' => 'gestao utilizador'], $this->dados);
     }
 
     public  function gestaoOficina()
     {
 
+        $this->utilizador = new Utilizador;
         $this->dados['tipo'] = "oficina";
         $this->dados['title_area'] = "Gestao de Oficina";
         return view('backoffice/page/gest-oficina', ['title' => 'gestao oficina'], $this->dados);
@@ -32,7 +53,6 @@ class Dashboard extends Controller
 
     public  function gestaoCliente()
     {
-
         $this->dados['tipo'] = "cliente";
         $this->dados['title_area'] = "Gestao de Cliente";
         return view('backoffice/page/gest-cliente', ['title' => 'gestao cliente'], $this->dados);
@@ -40,16 +60,42 @@ class Dashboard extends Controller
 
     public  function gestaoPerfil()
     {
-
         $this->dados['tipo'] = "profile";
         $this->dados['title_area'] = "Gestao de Perfil";
         return view('backoffice/page/gest-profile', ['title' => 'gestao profile'], $this->dados);
     }
 
-    public  function add_view($tipo){
+    public  function add_view($tipo)
+    {
 
-        $this->dados['tipo'] = $tipo;
-        $this->dados['title_area'] = "Gestao de Perfil";
+        switch ($tipo) {
+            case 'user':
+                $this->dados['tipo'] = "user";
+                $this->dados['title_area'] = "Gestao de Perfil";
+                $this->dados['nome'] = "Nome";
+                $this->dados['tipoUser'] = "Tipo";
+                $this->dados['pass'] = "Palavra-Passe";
+                $this->dados['email'] = "Email";
+                break;
+            case 'oficina':
+                $this->dados['tipo'] = $tipo;
+                $this->dados['title_area'] = "Gestao de Perfil";
+                /*$array[] = [
+                    'nome' => "Nome",
+                    'tipo' => "Tipo",
+                    'pass' =>   "Palavra-Passe",
+                    'email' => "Email"
+                ];*/
+                break;
+            case 'profile':
+                $this->dados['tipo'] = $tipo;
+                $this->dados['title_area'] = "Gestao de Perfil";
+                break;
+            case 'cliente':
+                $this->dados['tipo'] = $tipo;
+                $this->dados['title_area'] = "Gestao de Perfil";
+                break;
+        }
 
         return view('backoffice/page/add', ['title' => 'add'], $this->dados);
     }

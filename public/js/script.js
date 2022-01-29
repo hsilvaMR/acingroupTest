@@ -60,6 +60,10 @@ $(function() {
         })
     });
 
+    $(document).ready(function() {
+        $('#table_id').DataTable();
+    });
+
 })
 
 $(window).on('load', function() {

@@ -19,6 +19,9 @@
 {{-- custom   css --}}
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+{{-- datatables --}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+
 {{-- GOOGLE FONTS --}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
