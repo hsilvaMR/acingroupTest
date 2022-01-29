@@ -20,15 +20,16 @@
 
         </div>
 
-        <div class="box-table mt-4">
+        <div class="box-table mt-4 mx-auto w-75">
 
-            <table class="table" id="customTable">
-                <thead>
-                    <tr>
+            <table class="table table-striped table-bordered table-hover" id="customTable">
+                <thead class="table-primary">
+                    <tr class="">
                         <th scope="col">#</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
                         <th scope="col">Tipo</th>
+                        <th scope="col">Acao</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,14 @@
                             <td>{!! $val['nome'] !!}</td>
                             <td>{!! $val['email'] !!}</td>
                             <td>{!! $val['tipo'] !!}</td>
+                            {{-- editar |  apagar --}}
+                            <td>
+                                <a class="table-opcao">
+                                    <i class="fas fa-pencil-alt"></i>&nbsp;
+                                </a>
+                                &ensp;
+                                 <i class="fas fa-trash-alt"></i>&nbsp;
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

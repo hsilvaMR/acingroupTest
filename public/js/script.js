@@ -60,6 +60,51 @@ $(function() {
         })
     });
 
+    //  registar utilizador area de gestao 
+    $('#formAddUser').on('submit', function(e) {
+        var form = $(this);
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: form.attr('action'),
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            cache: false,
+            headers: { 'X-CSRF-Token': '{!! csrf_token() !!}' },
+            success: function(data) {
+
+                var jsonRetorna = $.parseJSON(data);
+                var sucess = jsonRetorna['success'];
+                var error = jsonRetorna['error'];
+
+                if (sucess == "success") {
+                    alert("registado com sucesso")
+                    $('#formAddUser')[0].reset();
+                    var url = '/dashboard/users';
+                    window.location.href = url
+                } else {
+                    alert(error)
+                }
+            },
+            error: function(jqXHR) {
+                //  https://www.w3schools.com/js/js_ajax_http.asp
+
+                var msg = "";
+                if (jqXHR.status != null) {
+
+                    msg = jqXHR.statusText;
+                }
+                if (jqXHR.readyState != null) {
+
+                    msg = jqXHR.responseText;
+                }
+                alert(msg)
+            }
+        })
+    });
+
+
     $(document).ready(function() {
         $('#table_id').DataTable();
     });

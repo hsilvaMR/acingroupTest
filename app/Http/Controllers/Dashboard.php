@@ -99,4 +99,46 @@ class Dashboard extends Controller
 
         return view('backoffice/page/add', ['title' => 'add'], $this->dados);
     }
+
+
+    public function add(Request $request)
+    {
+
+        $this->utilizador = new Utilizador;
+        $nome = trim($request->fname);
+        $senha = trim($request->fsenha);
+        $tipo = trim($request->ftype);
+        $email = trim($request->fmail);
+        $response  = ['error' =>  'init', 'success' =>  'init'];
+
+        if (!empty($email)  && !empty($senha) && !empty($nome) && !empty($tipo)    ) {
+
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                $checkInsert = $this->utilizador->insert(
+
+                    [
+                        'nome' =>   $nome,
+                        'tipo' => $tipo,
+                        'email' =>  $email,
+                        'senha' => \Hash::make($senha)
+                    ]
+                );
+
+                if ($checkInsert != null) {
+
+                    $response['success'] = "success";
+                }
+            }
+            else{
+
+                $response['error'] = "invalidMail";
+            }
+        }
+        else{
+
+            $response['error'] = "empty";
+        }
+        return json_encode($response, true);
+    }
 }
