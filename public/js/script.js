@@ -62,7 +62,7 @@ $(function() {
 
 
 
-    $('#btn-remov-cookie').on('click', function() {
+    $('.btn-remov-cookie').on('click', function() {
 
         localStorage.removeItem('idDelet');
         $('#exampleModal').modal('hide');
@@ -72,24 +72,28 @@ $(function() {
     $('#btn-delet').on('click', function() {
 
         $('#exampleModal').modal('hide');
-
         var id = localStorage.getItem("idDelet")
-        var url = '{{ route("deleteRecord", ":id") }}';
-        url = url.replace(':id', id);
         $.ajax({
-            type: "POST",
-            url: url,
+            type: 'GET',
+            url: 'delet/' + id,
+            //url: "{{route('deleteRecord') }}" + '/' + id,
+            //url: '{{ URL::route('deleteRecord',  'id' + ) }}',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            contentType: false,
+            processData: false,
+            enctype: 'multipart/form-data',
             success: function(data) {
+                alert(data)
                 if (data == "sucess") {
 
-                    alert("removido com sucesso")
-                    var url = '/dashboard';
+                    var url = '/dashboard/users';
                     window.location.href = url
-                } else {
-                    alert(data)
                 }
             }
-        });
+
+        })
 
     })
 
@@ -167,7 +171,6 @@ $(window).on('load', function() {
 
 function openModalDelete(id) {
 
-    alert("id : " + id)
     localStorage.setItem("idDelet", id)
     $('#exampleModal').modal('show');
 

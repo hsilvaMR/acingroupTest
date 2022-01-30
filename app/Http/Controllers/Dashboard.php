@@ -191,13 +191,15 @@ class Dashboard extends Controller
 
     public function delet($id)
     {
-
         $this->utilizador = new Utilizador;
         $response  = "init";
         if (!empty($id)) {
 
             $this->utilizador->where('id', $id)->delete();
             $response  = "sucess";
+        }
+        else {
+            $response  = "empty";
         }
 
         return $response;
