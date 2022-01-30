@@ -41,11 +41,12 @@
                             <td>{!! $val['tipo'] !!}</td>
                             {{-- editar |  apagar --}}
                             <td>
-                                <a class="table-opcao">
+                                <a class="table-opcao" href="{{ route('editarView',['id'=>$val['id']]) }}">
                                     <i class="fas fa-pencil-alt"></i>&nbsp;
                                 </a>
                                 &ensp;
-                                 <i class="fas fa-trash-alt"></i>&nbsp;
+                                 <i class="fas fa-trash-alt"></i>
+                                 &nbsp;
                             </td>
                         </tr>
                     @endforeach

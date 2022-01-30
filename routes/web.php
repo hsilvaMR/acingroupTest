@@ -36,6 +36,9 @@ Route::get('/', [Login::class, 'logout'])->name('logout');
 Route::get('/dashboard/add/{tipo}', [Dashboard::class, 'add_view'])->name('add_main_view');
 Route::post('/dashboard/add', [Dashboard::class, 'add'])->name('add');
 
+// editar 
+Route::get('/dashboard/edit/{id}', [Dashboard::class, 'editar_view'])->name('editarView');
+
 //Route::get('/login-page', [Login::class, 'pageLogin'])->name('box-login');
 
 /*Route::get('/', function () {

@@ -113,11 +113,10 @@ class Dashboard extends Controller
 
         $user = $this->utilizador->where('email', $email)->first();
 
-        if(!empty($user)){
+        if (!empty($user)) {
 
             $response['error'] = "existe";
-        }
-        else{
+        } else {
 
             if (!empty($email)  && !empty($senha) && !empty($nome) && !empty($tipo)) {
 
@@ -145,11 +144,48 @@ class Dashboard extends Controller
 
                 $response['error'] = "empty";
             }
-
         }
 
         return json_encode($response, true);
     }
 
 
+    public function editar_view($id)
+    {
+
+        $this->utilizador = new Utilizador;
+        if (!empty($id)) {
+
+            $user = $this->utilizador->where('id', $id)->first();
+            $array = [];
+
+            if (!empty($user)) {
+
+                $array[] = [
+                    'id' => $user->id,
+                    'nome' => $user->nome,
+                    'email' => $user->email,
+                    'tipoEdit' => $user->tipo,
+                    'palavraw'=> "jdjkdsdsj"
+                ];
+
+
+                $this->dados['nome'] = "Nome";
+                $this->dados['tipoUser'] = "Tipo";
+                $this->dados['pass'] = "Palavra-Passe";
+                $this->dados['email'] = "Email";
+
+                $this->dados['array'] = $array;
+                $this->dados['tipo'] = "user";
+                $this->dados['title_area'] = "Editar Uitlizadores";
+                
+            }
+        }
+
+        return view('backoffice/page/add', ['title' => 'editar'], $this->dados);
+    }
+
+    public function update(Request $request)
+    {
+    }
 }
