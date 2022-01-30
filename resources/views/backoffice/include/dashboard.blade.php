@@ -41,12 +41,12 @@
                             <td>{!! $val['tipo'] !!}</td>
                             {{-- editar |  apagar --}}
                             <td>
-                                <a class="table-opcao" href="{{ route('editarView',['id'=>$val['id']]) }}">
+                                <a class="table-opcao" href="{{ route('editarView', ['id' => $val['id']]) }}">
                                     <i class="fas fa-pencil-alt"></i>&nbsp;
                                 </a>
                                 &ensp;
-                                 <i class="fas fa-trash-alt"></i>
-                                 &nbsp;
+                                <i class="fas fa-trash-alt"  onclick="openModalDelete({{$val['id']}})"></i>
+                                &nbsp;
                             </td>
                         </tr>
                     @endforeach
@@ -80,9 +80,21 @@
 
     <script>
         $(document).ready(function() {
-            $('#customTable').DataTable();
+            
+           $('#customTable').DataTable();
+
+
+           /* $('#customTable').dataTable({
+
+                aoColumnDefs: [{
+                    "bSortable": false,
+                    "aTargets": [4]
+                }]
+            })*/
         });
     </script>
+
+     @include('backoffice/include/modal')
 
 
 </div>

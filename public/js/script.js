@@ -60,6 +60,42 @@ $(function() {
         })
     });
 
+    function openModalDelete(id) {
+
+        localStorage.setItem("idDelet", id)
+
+    }
+
+    $('#btn-remov-cookie').on('click', function() {
+
+        localStorage.removeItem('idDelet');
+        //alert("deletou o localstorage")
+    })
+
+    $('#btn-delet').on('click', function() {
+
+        $('#exampleModal').modal('hide');
+
+        var id = localStorage.getItem("idDelet")
+        var url = '{{ route("deleteRecord", ":id") }}';
+        url = url.replace(':id', id);
+        $.ajax({
+            type: "POST",
+            url: url,
+            success: function(data) {
+                if (data == "sucess") {
+
+                    alert("removido com sucesso")
+                    var url = '/dashboard';
+                    window.location.href = url
+                } else {
+                    alert(data)
+                }
+            }
+        });
+
+    })
+
     //  registar utilizador area de gestao 
     $('#formAddUser').on('submit', function(e) {
         var form = $(this);
@@ -111,11 +147,6 @@ $(function() {
         })
     });
 
-
-    $(document).ready(function() {
-        $('#table_id').DataTable();
-    });
-
 })
 
 $(window).on('load', function() {
@@ -132,7 +163,6 @@ $(window).on('load', function() {
             $('#idFmail').val(mail);
             $('#idPassword').val(password);
         }
-
 
     }
 

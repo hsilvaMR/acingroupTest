@@ -166,7 +166,7 @@ class Dashboard extends Controller
                     'nome' => $user->nome,
                     'email' => $user->email,
                     'tipoEdit' => $user->tipo,
-                    'palavraw'=> "jdjkdsdsj"
+                    'palavraw' => "jdjkdsdsj"
                 ];
 
 
@@ -179,7 +179,6 @@ class Dashboard extends Controller
                 $this->dados['tipo'] = "user";
                 $this->dados['title_area'] = "Editar Uitlizadores";
                 $this->dados['view'] = "edit";
-                
             }
         }
 
@@ -188,5 +187,19 @@ class Dashboard extends Controller
 
     public function update(Request $request)
     {
+    }
+
+    public function delet($id)
+    {
+
+        $this->utilizador = new Utilizador;
+        $response  = "init";
+        if (!empty($id)) {
+
+            $this->utilizador->where('id', $id)->delete();
+            $response  = "sucess";
+        }
+
+        return $response;
     }
 }
