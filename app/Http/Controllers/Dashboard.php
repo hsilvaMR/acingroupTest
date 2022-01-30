@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use App\Models\Utilizador;
+use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Redirect;
 
 class Dashboard extends Controller
 {
@@ -15,10 +18,22 @@ class Dashboard extends Controller
 
     public  function index()
     {
+
+        // if(Session::get("mail")!=null  && Session::get("name")!=null){
+
         $this->dados['tipo'] = "home";
         $this->dados['title_area'] = "Seja Bem Vindo a sua área de Gestão";
         //return view('site/page/home', ['title' => 'index'], $this->dados);
         return view('backoffice/page/admin', ['title' => 'index'], $this->dados);
+        //  }
+        // else {
+        //return Redirect::route('home');
+        //return Response(" invalido Login ");
+        //return view('site/page/home', ['title' => 'index']);
+        // return view('backoffice/page/admin', ['title' => 'index'], $this->dados);
+        //}
+
+
     }
 
     public  function gestaoUtilizador()
@@ -104,45 +119,79 @@ class Dashboard extends Controller
     public function add(Request $request)
     {
 
+
+
         $this->utilizador = new Utilizador;
         $nome = trim($request->fname);
         $senha = trim($request->fsenha);
         $tipo = trim($request->ftype);
         $email = trim($request->fmail);
+        $id  = trim($request->fid);
         $response  = ['error' =>  'init', 'success' =>  'init'];
-
         $user = $this->utilizador->where('email', $email)->first();
 
-        if (!empty($user)) {
+        if (!empty($id)) {
 
-            $response['error'] = "existe";
-        } else {
+            // editar 
 
             if (!empty($email)  && !empty($senha) && !empty($nome) && !empty($tipo)) {
 
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                    $checkInsert = $this->utilizador->insert(
+                     $this->utilizador->where('id', $id)->update([
+                         
+                        'nome' =>   $nome,
+                        'tipo' => $tipo,
+                        'email' =>  $email,
+                        'senha' => \Hash::make($senha)
+                    ]);
 
-                        [
-                            'nome' =>   $nome,
-                            'tipo' => $tipo,
-                            'email' =>  $email,
-                            'senha' => \Hash::make($senha)
-                        ]
-                    );
-
-                    if ($checkInsert != null) {
-
-                        $response['success'] = "success";
-                    }
-                } else {
+                    $response['success'] = "edit";
+                }
+                else{
 
                     $response['error'] = "invalidMail";
                 }
-            } else {
+
+            }
+            else{
 
                 $response['error'] = "empty";
+            }
+
+
+        } else {
+            if (!empty($user)) {
+
+                $response['error'] = "existe";
+            } else {
+
+                if (!empty($email)  && !empty($senha) && !empty($nome) && !empty($tipo)) {
+
+                    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+                        $checkInsert = $this->utilizador->insert(
+
+                            [
+                                'nome' =>   $nome,
+                                'tipo' => $tipo,
+                                'email' =>  $email,
+                                'senha' => \Hash::make($senha)
+                            ]
+                        );
+
+                        if ($checkInsert != null) {
+
+                            $response['success'] = "success";
+                        }
+                    } else {
+
+                        $response['error'] = "invalidMail";
+                    }
+                } else {
+
+                    $response['error'] = "empty";
+                }
             }
         }
 
@@ -185,10 +234,6 @@ class Dashboard extends Controller
         return view('backoffice/page/add', ['title' => 'editar'], $this->dados);
     }
 
-    public function update(Request $request)
-    {
-    }
-
     public function delet($id)
     {
         $this->utilizador = new Utilizador;
@@ -197,8 +242,7 @@ class Dashboard extends Controller
 
             $this->utilizador->where('id', $id)->delete();
             $response  = "sucess";
-        }
-        else {
+        } else {
             $response  = "empty";
         }
 

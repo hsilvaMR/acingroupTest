@@ -5,6 +5,7 @@ use App\Http\Controllers\Home;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\Oficina;
 use App\Http\Controllers\Dashboard;
+use App\Http\Middleware\DashbordMiddlware;
 
 
 
@@ -20,27 +21,27 @@ use App\Http\Controllers\Dashboard;
 */
 
 // route index 
-Route::get('/', [Home::class, 'index'])->name('home');
+Route::get('/', [Home::class, 'index'])->name('login-box');
 
 // route login  
 Route::post('/login', [Login::class, 'login_v2'])->name('login');
-Route::get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
-// area de gestão 
-Route::get('/dashboard/users', [Dashboard::class, 'gestaoUtilizador'])->name('gestUser');
-Route::get('/dashboard/oficina', [Dashboard::class, 'gestaoOficina'])->name('gestOficina');
-Route::get('/dashboard/cliente', [Dashboard::class, 'gestaoCliente'])->name('gestClient');
-Route::get('/dashboard/myProfile', [Dashboard::class, 'gestaoPerfil'])->name('gestProfile');
 Route::get('/', [Login::class, 'logout'])->name('logout');
 
+Route::middleware(DashbordMiddlware::class)->get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
+// area de gestão 
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/users', [Dashboard::class, 'gestaoUtilizador'])->name('gestUser');
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/oficina', [Dashboard::class, 'gestaoOficina'])->name('gestOficina');
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/cliente', [Dashboard::class, 'gestaoCliente'])->name('gestClient');
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/myProfile', [Dashboard::class, 'gestaoPerfil'])->name('gestProfile');
+
 // add item view 
-Route::get('/dashboard/add/{tipo}', [Dashboard::class, 'add_view'])->name('add_main_view');
-Route::post('/dashboard/add', [Dashboard::class, 'add'])->name('add');
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/add/{tipo}', [Dashboard::class, 'add_view'])->name('add_main_view');
+Route::middleware(DashbordMiddlware::class)->post('/dashboard/add', [Dashboard::class, 'add'])->name('add');
 
 // editar 
-Route::get('/dashboard/edit/{id}', [Dashboard::class, 'editar_view'])->name('editarView');
-
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/edit/{id}', [Dashboard::class, 'editar_view'])->name('editarView');
 // apagar 
-Route::get('/dashboard/delet/{id}', [Dashboard::class, 'delet'])->name('deleteRecord');
+Route::middleware(DashbordMiddlware::class)->get('/dashboard/delet/{id}', [Dashboard::class, 'delet'])->name('deleteRecord');
 
 
 //Route::get('/login-page', [Login::class, 'pageLogin'])->name('box-login');

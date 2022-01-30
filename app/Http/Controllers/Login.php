@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use App\Models\Utilizador;
 
 class Login extends Controller
@@ -64,10 +65,14 @@ class Login extends Controller
                 $user = $this->utilizador->where('email', $email)->first();
                 if (!empty($user->email)) {
                     
-                    //if (Hash::check($password, $user->senha)) {
-                    if ($password==$user->senha) {
+                    if (\Hash::check($password, $user->senha)) {
+                   // if ($password==$user->senha) {
 
                         $response = "sucess";
+
+                      Session::put('mail', $email);
+                      Session::put('name', $user->nome);
+
                     } else {
                         $response = "invalidLogin";
                     } 

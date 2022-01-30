@@ -120,6 +120,12 @@ $(function() {
                     $('#formAddUser')[0].reset();
                     var url = '/dashboard/users';
                     window.location.href = url
+                } else if (sucess == "edit") {
+
+                    alert("atualizado com  com sucesso")
+                    $('#formAddUser')[0].reset();
+                    var url = '/dashboard/users';
+                    window.location.href = url
                 } else {
                     switch (error) {
                         case "existe":

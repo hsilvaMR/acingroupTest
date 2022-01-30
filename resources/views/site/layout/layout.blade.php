@@ -3,7 +3,7 @@
 
 <head>
     @include('site/include/head')
-    <title>@yield('title')</title>
+     <title> {{ $title }}</title>
 </head>
 
 <body>

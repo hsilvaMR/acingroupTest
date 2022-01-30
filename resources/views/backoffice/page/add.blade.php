@@ -19,23 +19,22 @@
                 <form id="formLogin" action="{{ route('add') }}" name="formLogin" method="POST">
             @endif
 
-             @if ($tipo == 'cliente')
+            @if ($tipo == 'cliente')
                 <form id="formLogin" action="{{ route('add') }}" name="formLogin" method="POST">
             @endif
 
-             @csrf
-             
-             {{-- @foreach($array as $val) --}}
-            
+            @csrf
+
+            {{-- @foreach ($array as $val) --}}
+
             <!-- 2 column grid layout with text inputs for the first and last names -->
             <div class="row mb-4">
                 <div class="col">
                     <div class="form-outline">
+
+                        @if(isset($view))  <input type="hidden" value="@foreach ($array as $val)  {{ $val['id'] }}@endforeach"  id="form6Example3" class="form-control" name="fid" >@endif
                         <!-- Text input nome  -->
-                        <input type="text" id="idNome" class="form-control" name="fname"  
-                        
-                       @if(isset($view)) value="@foreach($array as $val)  {{$val['nome']}}@endforeach"@endif
-                        />
+                        <input type="text" id="idNome" class="form-control" name="fname" @if (isset($view)) value="@foreach ($array as $val)  {{ $val['nome'] }}@endforeach"@endif />
                         <label class="form-label" for="idNome">
                             @if ($tipo == 'user')
                                 {{ $nome }}
@@ -50,10 +49,7 @@
 
             <!-- Text input email  -->
             <div class="form-outline mb-4">
-                <input type="email" id="form6Example3" class="form-control" name="fmail" 
-                 @if(isset($view))  value="@foreach($array as $val)  {{$val['email']}}@endforeach"@endif
-                
-                />
+                <input type="email" id="form6Example3" class="form-control" name="fmail" @if (isset($view))  value="@foreach ($array as $val)  {{ $val['email'] }}@endforeach"@endif />
                 <label class="form-label" for="form6Example3">
 
                     @if ($tipo == 'user')
@@ -71,9 +67,9 @@
                 <label class="form-label" for="form6Example4"> {{ $tipoUser }} </label>
                 <select class="select form-control mb-4" name="ftype">
                     <option value="1"></option>
-                    <option value="Admin"  @if(isset($view)) @foreach($array as $val) @if($val['tipoEdit'] =='Admin')   {{"selected"}}   @endif @endforeach     @endif>Admin</option>
-                    <option value="Funcionario"  @if(isset($view)) @foreach($array as $val) @if($val['tipoEdit'] =='Funcionario')   {{"selected"}}   @endif @endforeach     @endif>Funcionario</option>
-                    <option value="Normal" @if(isset($view)) @foreach($array as $val) @if($val['tipoEdit'] =='Normal')   {{"selected"}}   @endif @endforeach     @endif>Normal</option>
+                    <option value="Admin" @if (isset($view)) @foreach ($array as $val) @if ($val['tipoEdit'] == 'Admin')   {{ 'selected' }}   @endif @endforeach     @endif>Admin</option>
+                    <option value="Funcionario" @if (isset($view)) @foreach ($array as $val) @if ($val['tipoEdit'] == 'Funcionario')   {{ 'selected' }}   @endif @endforeach     @endif>Funcionario</option>
+                    <option value="Normal" @if (isset($view)) @foreach ($array as $val) @if ($val['tipoEdit'] == 'Normal')   {{ 'selected' }}   @endif @endforeach     @endif>Normal</option>
                 </select>
             @else
                 <input type="text" id="form6Example4" class="form-control" />
@@ -85,9 +81,7 @@
 
             <!-- Email input  |  password  pas s  -->
             <div class="form-outline mb-4">
-                <input type="password" id="form6Example5" class="form-control" name="fsenha" 
-                 @if(isset($view))  value="@foreach($array as $val)  {{$val['palavraw']}}@endforeach"@endif
-                />
+                <input type="password" id="form6Example5" class="form-control" name="fsenha" @if (isset($view))  value="@foreach ($array as $val)  {{ $val['palavraw'] }}@endforeach"@endif />
                 {{-- @endforeach --}}
                 <label class="form-label" for="form6Example5">
                     @if ($tipo == 'user')
@@ -98,7 +92,7 @@
 
                 </label>
             </div>
-              
+
             @if ($tipo != 'user')
                 <!-- Number input -->
                 <div class="form-outline mb-4">
