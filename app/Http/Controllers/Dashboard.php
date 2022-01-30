@@ -178,6 +178,7 @@ class Dashboard extends Controller
                 $this->dados['array'] = $array;
                 $this->dados['tipo'] = "user";
                 $this->dados['title_area'] = "Editar Uitlizadores";
+                $this->dados['view'] = "edit";
                 
             }
         }
