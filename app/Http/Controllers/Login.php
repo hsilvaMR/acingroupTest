@@ -99,7 +99,11 @@ class Login extends Controller
 
     public  function logout()
     {
-        return view('site/page/home', ['title' => 'index']);
+
+        Session::forget("mail") ;
+        Session::forget("name") ;
+
+        return \Redirect::route("login-box");
     }
 
     /*public function remenber()

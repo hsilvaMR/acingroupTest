@@ -26,12 +26,7 @@ class DashbordMiddlware
         }
         else {
 
-            return $next($request);
-            //return Response(" invalido Login ");
-            //return view('site/page/home', ['title' => 'index']);
-            
-            //return redirect()->route('login-box');
-            //return view('site/page/home', ['title' => 'index']);
+            return \Redirect::route("login-box");
         }
     }
 }

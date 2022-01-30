@@ -25,7 +25,7 @@ Route::get('/', [Home::class, 'index'])->name('login-box');
 
 // route login  
 Route::post('/login', [Login::class, 'login_v2'])->name('login');
-Route::get('/', [Login::class, 'logout'])->name('logout');
+Route::get('/logout', [Login::class, 'logout'])->name('logout');
 
 Route::middleware(DashbordMiddlware::class)->get('/dashboard', [Dashboard::class, 'index'])->name('dashboard');
 // area de gestão 

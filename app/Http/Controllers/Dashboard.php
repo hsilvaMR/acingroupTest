@@ -19,21 +19,16 @@ class Dashboard extends Controller
     public  function index()
     {
 
-        // if(Session::get("mail")!=null  && Session::get("name")!=null){
+        if (Session::get("mail") != null  && Session::get("name") != null) {
 
-        $this->dados['tipo'] = "home";
-        $this->dados['title_area'] = "Seja Bem Vindo a sua área de Gestão";
-        //return view('site/page/home', ['title' => 'index'], $this->dados);
-        return view('backoffice/page/admin', ['title' => 'index'], $this->dados);
-        //  }
-        // else {
-        //return Redirect::route('home');
-        //return Response(" invalido Login ");
-        //return view('site/page/home', ['title' => 'index']);
-        // return view('backoffice/page/admin', ['title' => 'index'], $this->dados);
-        //}
+            $this->dados['tipo'] = "home";
+            $this->dados['title_area'] = "Seja Bem Vindo a sua área de Gestão";
+            //return view('site/page/home', ['title' => 'index'], $this->dados);
+            return view('backoffice/page/admin', ['title' => 'index'], $this->dados);
+        } else {
 
-
+            return \Redirect::route("login-box");
+        }
     }
 
     public  function gestaoUtilizador()
@@ -119,8 +114,6 @@ class Dashboard extends Controller
     public function add(Request $request)
     {
 
-
-
         $this->utilizador = new Utilizador;
         $nome = trim($request->fname);
         $senha = trim($request->fsenha);
@@ -138,8 +131,8 @@ class Dashboard extends Controller
 
                 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                     $this->utilizador->where('id', $id)->update([
-                         
+                    $this->utilizador->where('id', $id)->update([
+
                         'nome' =>   $nome,
                         'tipo' => $tipo,
                         'email' =>  $email,
@@ -147,19 +140,14 @@ class Dashboard extends Controller
                     ]);
 
                     $response['success'] = "edit";
-                }
-                else{
+                } else {
 
                     $response['error'] = "invalidMail";
                 }
-
-            }
-            else{
+            } else {
 
                 $response['error'] = "empty";
             }
-
-
         } else {
             if (!empty($user)) {
 
