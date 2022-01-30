@@ -12,7 +12,7 @@
         De Certeza que queres Apagar este Utilizador ? 
       </div>
       <div class="modal-footer">
-        <button type="button" id="btn-remov-cookie"  class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" id="btn-remov-cookie"  class="btn btn-secondary">Não</button>
         <button type="button" id="btn-delet" class="btn btn-primary">Sim</button>
       </div>
     </div>

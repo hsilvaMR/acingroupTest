@@ -45,7 +45,7 @@
                                     <i class="fas fa-pencil-alt"></i>&nbsp;
                                 </a>
                                 &ensp;
-                                <i class="fas fa-trash-alt"  onclick="openModalDelete({{$val['id']}})"></i>
+                                <i class="fas fa-trash-alt"  onClick="openModalDelete('{{$val['id']}}')"></i>
                                 &nbsp;
                             </td>
                         </tr>

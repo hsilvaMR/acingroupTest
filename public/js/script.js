@@ -60,15 +60,12 @@ $(function() {
         })
     });
 
-    function openModalDelete(id) {
 
-        localStorage.setItem("idDelet", id)
-
-    }
 
     $('#btn-remov-cookie').on('click', function() {
 
         localStorage.removeItem('idDelet');
+        $('#exampleModal').modal('hide');
         //alert("deletou o localstorage")
     })
 
@@ -167,3 +164,11 @@ $(window).on('load', function() {
     }
 
 });
+
+function openModalDelete(id) {
+
+    alert("id : " + id)
+    localStorage.setItem("idDelet", id)
+    $('#exampleModal').modal('show');
+
+}
