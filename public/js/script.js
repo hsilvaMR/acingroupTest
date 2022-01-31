@@ -21,7 +21,7 @@ $(function() {
                         if ($('#idRemeber').is(':checked')) {
 
                             localStorage.setItem('mail', $('#idFmail').val())
-                            localStorage.setItem('password', $('#idFmail').val())
+                            localStorage.setItem('password', $('#idPassword').val())
                         }
                         $('#formLogin')[0].reset();
                         // alert("login success")
